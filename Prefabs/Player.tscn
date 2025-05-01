@@ -1,0 +1,49 @@
+[gd_scene load_steps=8 format=3 uid="uid://ca43refstl3qj"]
+
+[ext_resource type="Script" uid="uid://dswraaekfjdga" path="res://Scripts/player.gd" id="1_b43ah"]
+[ext_resource type="Texture2D" uid="uid://cdnh330mnaik2" path="res://Sprites/MainCharacter2.png" id="2_shmu5"]
+[ext_resource type="PackedScene" uid="uid://cwd2r02puc1vm" path="res://Prefabs/bomb.tscn" id="2_vxq8l"]
+[ext_resource type="PackedScene" uid="uid://c1exf5l8gq8ej" path="res://Prefabs/hook_shoot.tscn" id="3_gg3t4"]
+[ext_resource type="Script" uid="uid://cr3g4rtsvnjr7" path="res://Scripts/inputManager.gd" id="3_vxq8l"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kpjcp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_shmu5")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xhfnw"]
+size = Vector2(16, 15)
+
+[node name="Player" type="RigidBody2D"]
+collision_mask = 3
+gravity_scale = 0.0
+lock_rotation = true
+script = ExtResource("1_b43ah")
+maxSpeed = 85.0
+acceleration = 10.0
+desaceleration = 10.0
+minimumInputVector = 0.1
+bombPrefab = ExtResource("2_vxq8l")
+hookPrefab = ExtResource("3_gg3t4")
+bombOfsset = 25
+hookOffset = 10
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_kpjcp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4.5)
+shape = SubResource("RectangleShape2D_xhfnw")
+
+[node name="Node2D" type="Node2D" parent="."]
+script = ExtResource("3_vxq8l")
+maxItems = 5
+
+[connection signal="OnItemSignal" from="Node2D" to="." method="HandleItemInput"]
+[connection signal="OnMoveSignal" from="Node2D" to="." method="OnMoveInputChange"]
