@@ -22,7 +22,9 @@ func _physics_process(delta: float) -> void:
 	#HandleMovement(delta)
 
 func OnMoveInputChange(newInputVector : Vector2):
-	inputVector = newInputVector.normalized()
+	inputVector = newInputVector
+	if (inputVector.length() > 1):
+		inputVector = inputVector.normalized()
 	
 	if abs(inputVector.x) > abs(inputVector.y):
 		if inputVector.x > 0:
