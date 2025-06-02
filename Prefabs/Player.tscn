@@ -20,7 +20,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xhfnw"]
 size = Vector2(16, 15)
 
-[node name="Player" type="RigidBody2D"]
+[node name="Player" type="RigidBody2D" node_paths=PackedStringArray("bombTimer")]
 collision_mask = 3
 gravity_scale = 0.0
 lock_rotation = true
@@ -33,6 +33,7 @@ bombPrefab = ExtResource("2_vxq8l")
 hookPrefab = ExtResource("3_gg3t4")
 bombOfsset = 25
 hookOffset = 10
+bombTimer = NodePath("BombTimer")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_kpjcp")
@@ -45,9 +46,14 @@ shape = SubResource("RectangleShape2D_xhfnw")
 script = ExtResource("3_vxq8l")
 delta = 0.1
 
+[node name="BombTimer" type="Timer" parent="."]
+wait_time = 1.2
+one_shot = true
+
 [connection signal="OnBombInput" from="InputManager" to="." method="DropBomb"]
 [connection signal="OnBowInput" from="InputManager" to="." method="ShootBow"]
 [connection signal="OnHookInput" from="InputManager" to="." method="ShootHookshot"]
 [connection signal="OnMoveSignal" from="InputManager" to="." method="OnMoveInputChange"]
 [connection signal="OnShieldInput" from="InputManager" to="." method="RaiseShield"]
 [connection signal="OnSwordInput" from="InputManager" to="." method="SwingSword"]
+[connection signal="timeout" from="BombTimer" to="." method="BombTimeout"]
