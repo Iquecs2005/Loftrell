@@ -10,8 +10,6 @@ signal OnHookInput()
 var inputActions : Array = ["SwordAction", "ShieldAction", "BowAction", "BombAction", "HookAction"]
 var itemEventsArray : Array = [OnSwordInput, OnShieldInput, OnBowInput, OnBombInput, OnHookInput]
 
-@export var maxItems : int
-
 var moveVector : Vector2 = Vector2.ZERO
 var onMove : bool = false
 @export var delta : float 
@@ -35,10 +33,10 @@ func ProcessMovement():
 	elif (newMoveVector.y < -0.95):
 		newMoveVector.y = -1
 	
-	if (abs(newMoveVector.x - moveVector.x) < delta && abs(newMoveVector.y - moveVector.y) < delta):
+	if (abs(moveVector.x - newMoveVector.x) > delta or abs(moveVector.y - newMoveVector.y) > delta):
+		moveVector = newMoveVector
 		OnMove()
 	
-	moveVector = newMoveVector
 	#if (Input.is_action_just_pressed("MoveUp")):
 		#moveVector.y -= 1
 		#onMove = true
