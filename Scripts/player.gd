@@ -17,6 +17,10 @@ var facingDir = Vector2.DOWN
 @export var bombOfsset = 0
 @export var hookOffset = 0
 
+@export var bombTimer : Timer
+
+var bombCooldown = true
+
 func _physics_process(delta: float) -> void:
 	Move()
 	#HandleMovement(delta)
@@ -63,10 +67,15 @@ func ShootBow():
 	print("Usou seu arco")
 
 func DropBomb():
+	if !bombCooldown :
+		print("Bomba em cooldown")
+		return
 	var newBomb = bombPrefab.instantiate()
 	newBomb.global_position = global_position + facingDir * bombOfsset
 	get_tree().root.add_child(newBomb)
 	print("Usou sua bomba")
+	bombCooldown = false
+	bombTimer.start()
 
 func ShootHookshot():
 	var newHookshoot = hookPrefab.instantiate()
@@ -74,3 +83,7 @@ func ShootHookshot():
 	get_tree().root.add_child(newHookshoot)
 	newHookshoot.get_child(0).initialize(facingDir)
 	print("Usou seu gancho")
+
+
+func BombTimeout() -> void:
+	bombCooldown = true
