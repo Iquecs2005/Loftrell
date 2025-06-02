@@ -53,14 +53,6 @@ func Move():
 	#currentVelocity += currentAcceleration * delta
 	#position += currentVelocity * delta
 
-func HandleItemInput(itemId : int):
-	match itemId:
-		0: SwingSword()
-		1: RaiseShield()
-		2: ShootBow()
-		3: DropBomb()
-		4: ShootHookshot()
-
 func SwingSword():
 	print("Usou sua espada")
 

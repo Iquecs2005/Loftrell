@@ -41,10 +41,14 @@ sprite_frames = SubResource("SpriteFrames_kpjcp")
 position = Vector2(0, 4.5)
 shape = SubResource("RectangleShape2D_xhfnw")
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="InputManager" type="Node2D" parent="."]
 script = ExtResource("3_vxq8l")
 maxItems = 5
 delta = 0.1
 
-[connection signal="OnItemSignal" from="Node2D" to="." method="HandleItemInput"]
-[connection signal="OnMoveSignal" from="Node2D" to="." method="OnMoveInputChange"]
+[connection signal="OnBombInput" from="InputManager" to="." method="DropBomb"]
+[connection signal="OnBowInput" from="InputManager" to="." method="ShootBow"]
+[connection signal="OnHookInput" from="InputManager" to="." method="ShootHookshot"]
+[connection signal="OnMoveSignal" from="InputManager" to="." method="OnMoveInputChange"]
+[connection signal="OnShieldInput" from="InputManager" to="." method="RaiseShield"]
+[connection signal="OnSwordInput" from="InputManager" to="." method="SwingSword"]

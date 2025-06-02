@@ -1,7 +1,14 @@
 extends Node2D
 
 signal OnMoveSignal(inputVector)
-signal OnItemSignal(itemID : int)
+signal OnSwordInput()
+signal OnShieldInput()
+signal OnBowInput()
+signal OnBombInput()
+signal OnHookInput()
+
+var inputActions : Array = ["SwordAction", "ShieldAction", "BowAction", "BombAction", "HookAction"]
+var itemEventsArray : Array = [OnSwordInput, OnShieldInput, OnBowInput, OnBombInput, OnHookInput]
 
 @export var maxItems : int
 
@@ -69,6 +76,6 @@ func OnMove():
 	pass
 
 func ProcessoItems():
-	for i in range(0, maxItems):
-		if (Input.is_action_just_pressed("Item"+str(i))):
-			OnItemSignal.emit(i)
+	for i in inputActions.size():
+		if (Input.is_action_just_pressed(inputActions[i])):
+			itemEventsArray[i].emit()
