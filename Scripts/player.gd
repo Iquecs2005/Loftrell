@@ -76,16 +76,28 @@ func Move():
 	#position += currentVelocity * delta
 
 func SwingSword():
+	if !hookCooldown :
+		print("Gancho em cooldown")
+		return
 	print("Usou sua espada")
 
 func RaiseShield():
+	if !hookCooldown :
+		print("Gancho em cooldown")
+		return
 	print("Usou seu escudo")
 
 func ShootBow():
+	if !hookCooldown :
+		print("Gancho em cooldown")
+		return
 	print("Usou seu arco")
 
 func DropBomb():
-	if !bombCooldown :
+	if !hookCooldown :
+		print("Gancho em cooldown")
+		return
+	if !bombCooldown:
 		print("Bomba em cooldown")
 		return
 	raycast.enabled = true
