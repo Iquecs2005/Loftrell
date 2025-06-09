@@ -8,8 +8,12 @@ extends RigidBody2D
 @export var bombPrefab : PackedScene
 @export var hookPrefab : PackedScene
 
+
 var lockRotation : bool = false
 var shouldMove : bool = true
+
+@export var raycast : RayCast2D
+
 var shouldAccelerate : bool
 var shouldDesaccelerate : bool
 
@@ -49,6 +53,7 @@ func calculateRotation():
 			facingDir = Vector2.DOWN
 		elif inputVector.y < 0: 
 			facingDir = Vector2.UP
+	raycast.target_position = facingDir * 15
 
 func Move():
 	if !shouldMove:
@@ -82,8 +87,13 @@ func DropBomb():
 	if !bombCooldown :
 		print("Bomba em cooldown")
 		return
+	raycast.enabled = true
+	raycast.force_raycast_update()
 	var newBomb = bombPrefab.instantiate()
 	newBomb.global_position = global_position + facingDir * bombOfsset
+	if raycast.is_colliding():
+		newBomb.global_position = global_position
+	raycast.enabled = false
 	get_tree().root.add_child(newBomb)
 	print("Usou sua bomba")
 	bombCooldown = false

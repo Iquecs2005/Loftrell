@@ -10,4 +10,5 @@ position = Vector2(160, 90)
 
 [node name="Parede" parent="." instance=ExtResource("2_20thd")]
 position = Vector2(249, 133)
+rotation = 1.5708
 scale = Vector2(1, 4.28)
