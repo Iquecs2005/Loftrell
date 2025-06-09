@@ -1,5 +1,7 @@
 extends Node2D
 
+var playerRef : Node
+
 var initialPosition : Vector2
 
 @export var hookSpeed : float
@@ -11,9 +13,10 @@ var hookshootLine : Line2D
 var maxLenght : bool
 var dirVector : Vector2 = Vector2.RIGHT
 
-func initialize(newDir : Vector2) -> void:
+func initialize(player : Node, newDir : Vector2) -> void:
 	initialPosition = global_position
 	dirVector = newDir
+	playerRef = player
 	if (dirVector.y != 0):
 		hookLenght /= 2
 	rotate(dirVector.angle())
@@ -33,4 +36,5 @@ func StopHookshoot(body : Node):
 	$DestructionTimer.start(desctructionTime)
 
 func destroyHookshoot():
+	playerRef.ResumeMovement()
 	get_parent().queue_free()

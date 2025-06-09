@@ -8,6 +8,8 @@ extends RigidBody2D
 @export var bombPrefab : PackedScene
 @export var hookPrefab : PackedScene
 
+var lockRotation : bool = false
+var shouldMove : bool = true
 var shouldAccelerate : bool
 var shouldDesaccelerate : bool
 
@@ -22,6 +24,7 @@ var facingDir = Vector2.DOWN
 var bombCooldown = true
 
 func _physics_process(delta: float) -> void:
+	
 	Move()
 	#HandleMovement(delta)
 
@@ -29,6 +32,12 @@ func OnMoveInputChange(newInputVector : Vector2):
 	inputVector = newInputVector
 	if (inputVector.length() > 1):
 		inputVector = inputVector.normalized()
+	
+	calculateRotation()
+
+func calculateRotation():
+	if (lockRotation):
+		return
 	
 	if abs(inputVector.x) > abs(inputVector.y):
 		if inputVector.x > 0:
@@ -42,6 +51,9 @@ func OnMoveInputChange(newInputVector : Vector2):
 			facingDir = Vector2.UP
 
 func Move():
+	if !shouldMove:
+		return
+	
 	var targetSpeed : Vector2 = inputVector * maxSpeed
 	var speedDif : Vector2 = targetSpeed - linear_velocity
 	
@@ -81,9 +93,19 @@ func ShootHookshot():
 	var newHookshoot = hookPrefab.instantiate()
 	newHookshoot.global_position = global_position + facingDir * hookOffset
 	get_tree().root.add_child(newHookshoot)
-	newHookshoot.get_child(0).initialize(facingDir)
+	newHookshoot.get_child(0).initialize(self, facingDir)
+	StopMovement()
 	print("Usou seu gancho")
 
+func StopMovement():
+	shouldMove = false
+	lockRotation = true
+	linear_velocity = Vector2.ZERO
+
+func ResumeMovement():
+	shouldMove = true
+	lockRotation = false
+	calculateRotation()
 
 func BombTimeout() -> void:
 	bombCooldown = true
