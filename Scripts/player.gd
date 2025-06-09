@@ -26,6 +26,7 @@ var facingDir = Vector2.DOWN
 @export var bombTimer : Timer
 
 var bombCooldown = true
+var hookCooldown = true
 
 func _physics_process(delta: float) -> void:
 	
@@ -100,12 +101,16 @@ func DropBomb():
 	bombTimer.start()
 
 func ShootHookshot():
+	if !hookCooldown :
+		print("Gancho em cooldown")
+		return
 	var newHookshoot = hookPrefab.instantiate()
 	newHookshoot.global_position = global_position + facingDir * hookOffset
 	get_tree().root.add_child(newHookshoot)
 	newHookshoot.get_child(0).initialize(self, facingDir)
 	StopMovement()
 	print("Usou seu gancho")
+	hookCooldown = false
 
 func StopMovement():
 	shouldMove = false
@@ -119,3 +124,6 @@ func ResumeMovement():
 
 func BombTimeout() -> void:
 	bombCooldown = true
+
+func HookTimeout() -> void:
+	hookCooldown = true

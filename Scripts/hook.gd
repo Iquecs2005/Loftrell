@@ -37,4 +37,5 @@ func StopHookshoot(body : Node):
 
 func destroyHookshoot():
 	playerRef.ResumeMovement()
+	playerRef.HookTimeout()
 	get_parent().queue_free()
