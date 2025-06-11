@@ -11,7 +11,7 @@ var initialPosition : Vector2
 var hookshootLine : Line2D
 
 var maxLenght : bool
-var dirVector : Vector2 = Vector2.RIGHT
+var dirVector : Vector2
 
 func initialize(player : Node, newDir : Vector2) -> void:
 	initialPosition = global_position
@@ -19,7 +19,6 @@ func initialize(player : Node, newDir : Vector2) -> void:
 	playerRef = player
 	if (dirVector.y != 0):
 		hookLenght /= 2
-	rotate(dirVector.angle())
 	hookshootLine = get_parent().get_child(1).get_child(0)
 	
 

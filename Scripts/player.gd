@@ -118,6 +118,7 @@ func ShootHookshot():
 		return
 	var newHookshoot = hookPrefab.instantiate()
 	newHookshoot.global_position = global_position + facingDir * hookOffset
+	newHookshoot.get_child(0).rotation = facingDir.angle()
 	get_tree().root.add_child(newHookshoot)
 	newHookshoot.get_child(0).initialize(self, facingDir)
 	StopMovement()
