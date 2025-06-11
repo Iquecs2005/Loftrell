@@ -8,6 +8,8 @@ extends RigidBody2D
 @export var bombPrefab : PackedScene
 @export var hookPrefab : PackedScene
 
+@export var attackSprite : AnimatedSprite2D
+@export var attackCollision = CollisionShape2D
 
 var lockRotation : bool = false
 var shouldMove : bool = true
@@ -24,6 +26,7 @@ var facingDir = Vector2.DOWN
 @export var hookOffset = 0
 
 @export var bombTimer : Timer
+@export var attackTimer : Timer
 
 var bombCooldown = true
 var hookCooldown = true
@@ -79,7 +82,12 @@ func SwingSword():
 	if !hookCooldown :
 		print("Gancho em cooldown")
 		return
+	attackSprite.visible = true
+	attackCollision.disabled = false
+	StopMovement()
 	print("Usou sua espada")
+	hookCooldown = false
+	attackTimer.start()
 
 func RaiseShield():
 	if !hookCooldown :
@@ -139,4 +147,10 @@ func BombTimeout() -> void:
 	bombCooldown = true
 
 func HookTimeout() -> void:
+	hookCooldown = true
+	
+func AttackTimeout() -> void:
+	attackSprite.visible = false
+	attackCollision.disabled = true
+	ResumeMovement()
 	hookCooldown = true
