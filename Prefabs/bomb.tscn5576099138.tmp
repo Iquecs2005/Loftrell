@@ -46,4 +46,3 @@ disabled = true
 
 [connection signal="timeout" from="Timer" to="." method="ExplodeBomb"]
 [connection signal="area_entered" from="ExplosionArea" to="." method="_on_explosion_area_area_entered"]
-[connection signal="body_entered" from="ExplosionArea" to="." method="_on_explosion_area_body_entered"]

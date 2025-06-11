@@ -1,5 +1,8 @@
 extends RigidBody2D
 
+@onready var healthController = $HealthController
+@onready var damageController = $DamageController
+
 @export var maxSpeed : float
 @export var acceleration : float
 @export var desaceleration : float

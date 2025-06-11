@@ -1,0 +1,52 @@
+extends Node2D
+
+signal OnHealthUpdate
+signal OnDeath
+
+@onready var entityController = get_parent()
+
+@export var maxHealth : float
+
+var currentHealth : float
+
+var dead : bool
+
+func _ready() -> void:
+	currentHealth = maxHealth
+	return
+
+func UpdateHealth(amount : float):
+	currentHealth += amount
+	
+	OnHealthUpdate.emit()
+	return
+
+func TakeDamage():
+	
+	var amount = entityController.damageController.damage
+	
+	if dead:
+		return
+	
+	UpdateHealth(-amount)
+	
+	if (currentHealth <= 0):
+		dead = true
+		OnDeath.emit()
+	
+	return
+
+func ReceiveHealing(amount : float):
+	
+	if dead:
+		return
+	
+	UpdateHealth(amount)
+	
+	if (currentHealth > maxHealth):
+		currentHealth = maxHealth
+	
+	return
+
+func ChangeMaxHealth():
+	return
