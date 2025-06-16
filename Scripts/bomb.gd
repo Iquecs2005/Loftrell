@@ -5,8 +5,9 @@ extends RigidBody2D
 var bombDamage : float = 0
 var collidedObjects = []
 
-func Initialize(damage : float):
+func Initialize(damage : float, radius : float):
 	bombDamage = damage
+	$ExplosionArea/Radius.shape.radius = radius
 
 func ExplodeBomb():
 	explosionCollider.disabled = false
