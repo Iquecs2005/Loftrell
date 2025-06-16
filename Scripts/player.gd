@@ -3,6 +3,9 @@ extends RigidBody2D
 @onready var healthController = $HealthController
 @onready var damageController = $DamageController
 
+@onready var bombTimer = $BombTimer
+@onready var attackTimer = $AttackTimer
+
 @export var maxSpeed : float
 @export var acceleration : float
 @export var desaceleration : float
@@ -28,9 +31,6 @@ var facingDir = Vector2.DOWN
 
 @export var bombOfsset = 0
 @export var hookOffset = 0
-
-@export var bombTimer : Timer
-@export var attackTimer : Timer
 
 var bombCooldown = true
 var hookCooldown = true

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://mcqpe4xq5hle"]
 
-[ext_resource type="PackedScene" uid="uid://diyrwckyhjymg" path="res://Prefabs/Player.tscn" id="1_cqk61"]
+[ext_resource type="PackedScene" uid="uid://ca43refstl3qj" path="res://Prefabs/Player.tscn" id="1_cqk61"]
 [ext_resource type="PackedScene" uid="uid://cbuslhng1m0yd" path="res://Prefabs/parede.tscn" id="2_20thd"]
 
 [node name="CenaTeste" type="Node2D"]
