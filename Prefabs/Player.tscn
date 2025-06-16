@@ -1,5 +1,4 @@
 [gd_scene load_steps=10 format=3 uid="uid://diyrwckyhjymg"]
-[gd_scene load_steps=10 format=3 uid="uid://ca43refstl3qj"]
 
 [ext_resource type="Script" uid="uid://dswraaekfjdga" path="res://Scripts/player.gd" id="1_b43ah"]
 [ext_resource type="Texture2D" uid="uid://cdnh330mnaik2" path="res://Sprites/MainCharacter2.png" id="2_shmu5"]
@@ -23,7 +22,6 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xhfnw"]
 size = Vector2(16, 15)
 
-[node name="Player" type="RigidBody2D" node_paths=PackedStringArray("raycast", "bombTimer")]
 [node name="Player" type="RigidBody2D" node_paths=PackedStringArray("raycast")]
 collision_mask = 3
 gravity_scale = 0.0
@@ -35,6 +33,7 @@ desaceleration = 10.0
 minimumInputVector = 0.1
 bombPrefab = ExtResource("2_vxq8l")
 bombDamage = 5.0
+bombRadius = 32.0
 hookPrefab = ExtResource("3_gg3t4")
 raycast = NodePath("RayCast2D")
 bombOfsset = 25
@@ -55,9 +54,6 @@ delta = 0.1
 wait_time = 1.2
 one_shot = true
 
-[node name="AttackTimer" type="Timer" parent="."]
-one_shot = true
-
 [node name="RayCast2D" type="RayCast2D" parent="."]
 enabled = false
 target_position = Vector2(0, 15)
@@ -76,6 +72,5 @@ maxHealth = 10.0
 [connection signal="OnShieldInput" from="InputManager" to="." method="RaiseShield"]
 [connection signal="OnSwordInput" from="InputManager" to="." method="SwingSword"]
 [connection signal="timeout" from="BombTimer" to="." method="BombTimeout"]
-[connection signal="timeout" from="AttackTimer" to="." method="AttackTimeout"]
 [connection signal="OnDeath" from="HealthController" to="." method="Destroy"]
 [connection signal="OnDamage" from="DamageController" to="HealthController" method="TakeDamage"]
