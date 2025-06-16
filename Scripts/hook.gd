@@ -30,7 +30,7 @@ func _physics_process(_delta: float) -> void:
 			StopHookshoot(null)
 		hookshootLine.points[1] = global_position - get_parent().global_position
 
-func StopHookshoot(body : Node):
+func StopHookshoot(_body : Node):
 	maxLenght = true
 	$DestructionTimer.start(desctructionTime)
 
