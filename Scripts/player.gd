@@ -9,6 +9,7 @@ extends RigidBody2D
 @export var minimumInputVector : float
 
 @export var bombPrefab : PackedScene
+@export var bombDamage : float
 @export var hookPrefab : PackedScene
 
 @export var attackSprite : AnimatedSprite2D
@@ -114,6 +115,7 @@ func DropBomb():
 	raycast.enabled = true
 	raycast.force_raycast_update()
 	var newBomb = bombPrefab.instantiate()
+	newBomb.Initialize(bombDamage)
 	newBomb.global_position = global_position + facingDir * bombOfsset
 	if raycast.is_colliding():
 		newBomb.global_position = global_position
@@ -157,3 +159,6 @@ func AttackTimeout() -> void:
 	attackCollision.disabled = true
 	ResumeMovement()
 	hookCooldown = true
+
+func Destroy() -> void:
+	queue_free()

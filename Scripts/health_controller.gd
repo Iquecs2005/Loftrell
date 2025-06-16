@@ -23,7 +23,7 @@ func UpdateHealth(amount : float):
 
 func TakeDamage():
 	
-	var amount = entityController.damageController.damage
+	var amount = entityController.damageController.damageAmount
 	
 	if dead:
 		return

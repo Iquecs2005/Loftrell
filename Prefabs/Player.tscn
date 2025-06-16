@@ -32,6 +32,7 @@ acceleration = 10.0
 desaceleration = 10.0
 minimumInputVector = 0.1
 bombPrefab = ExtResource("2_vxq8l")
+bombDamage = 5.0
 hookPrefab = ExtResource("3_gg3t4")
 raycast = NodePath("RayCast2D")
 bombOfsset = 25
@@ -71,3 +72,5 @@ maxHealth = 10.0
 [connection signal="OnShieldInput" from="InputManager" to="." method="RaiseShield"]
 [connection signal="OnSwordInput" from="InputManager" to="." method="SwingSword"]
 [connection signal="timeout" from="BombTimer" to="." method="BombTimeout"]
+[connection signal="OnDeath" from="HealthController" to="." method="Destroy"]
+[connection signal="OnDamage" from="DamageController" to="HealthController" method="TakeDamage"]
