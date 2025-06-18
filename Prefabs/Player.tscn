@@ -1,15 +1,39 @@
-[gd_scene load_steps=10 format=3 uid="uid://diyrwckyhjymg"]
+[gd_scene load_steps=15 format=3 uid="uid://diyrwckyhjymg"]
 
 [ext_resource type="Script" uid="uid://dswraaekfjdga" path="res://Scripts/player.gd" id="1_b43ah"]
 [ext_resource type="Texture2D" uid="uid://cdnh330mnaik2" path="res://Sprites/MainCharacter2.png" id="2_shmu5"]
 [ext_resource type="PackedScene" uid="uid://cwd2r02puc1vm" path="res://Prefabs/bomb.tscn" id="2_vxq8l"]
 [ext_resource type="PackedScene" uid="uid://c1exf5l8gq8ej" path="res://Prefabs/hook_shoot.tscn" id="3_gg3t4"]
 [ext_resource type="Script" uid="uid://cr3g4rtsvnjr7" path="res://Scripts/inputManager.gd" id="3_vxq8l"]
+[ext_resource type="Texture2D" uid="uid://js26jogspp45" path="res://Sprites/attack.jpeg" id="4_3ygst"]
+[ext_resource type="Texture2D" uid="uid://cdogo18wkan8j" path="res://Sprites/bombPlaceholder.jpg" id="5_lhekp"]
 [ext_resource type="PackedScene" uid="uid://dtqylaw40i7ku" path="res://Components/health_controller.tscn" id="6_gg3t4"]
+[ext_resource type="Texture2D" uid="uid://wcr558vmhomi" path="res://Sprites/download.png" id="6_k2qb3"]
 [ext_resource type="PackedScene" uid="uid://cbclpj3qgkfmt" path="res://Components/damage_controller.tscn" id="7_javds"]
+[ext_resource type="Texture2D" uid="uid://bc4k1qo2wt4nn" path="res://Sprites/Player.png" id="8_wuv02"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_kpjcp"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_3ygst")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_lhekp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_k2qb3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_shmu5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_wuv02")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("2_shmu5")
@@ -22,7 +46,9 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xhfnw"]
 size = Vector2(16, 15)
 
-[node name="Player" type="RigidBody2D" node_paths=PackedStringArray("raycast")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_javds"]
+
+[node name="Player" type="RigidBody2D" node_paths=PackedStringArray("attackSprite", "attackCollision", "raycast")]
 collision_mask = 3
 gravity_scale = 0.0
 lock_rotation = true
@@ -35,6 +61,8 @@ bombPrefab = ExtResource("2_vxq8l")
 bombDamage = 5.0
 bombRadius = 32.0
 hookPrefab = ExtResource("3_gg3t4")
+attackSprite = NodePath("AnimatedSprite2D")
+attackCollision = NodePath("AttackArea/AttackCollision")
 raycast = NodePath("RayCast2D")
 bombOfsset = 25
 hookOffset = 10
@@ -46,12 +74,22 @@ sprite_frames = SubResource("SpriteFrames_kpjcp")
 position = Vector2(0, 4.5)
 shape = SubResource("RectangleShape2D_xhfnw")
 
+[node name="AttackArea" type="Area2D" parent="."]
+
+[node name="AttackCollision" type="CollisionShape2D" parent="AttackArea"]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_javds")
+disabled = true
+
 [node name="InputManager" type="Node2D" parent="."]
 script = ExtResource("3_vxq8l")
 delta = 0.1
 
 [node name="BombTimer" type="Timer" parent="."]
 wait_time = 1.2
+one_shot = true
+
+[node name="AttackTimer" type="Timer" parent="."]
 one_shot = true
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
@@ -72,5 +110,6 @@ maxHealth = 10.0
 [connection signal="OnShieldInput" from="InputManager" to="." method="RaiseShield"]
 [connection signal="OnSwordInput" from="InputManager" to="." method="SwingSword"]
 [connection signal="timeout" from="BombTimer" to="." method="BombTimeout"]
+[connection signal="timeout" from="AttackTimer" to="." method="AttackTimeout"]
 [connection signal="OnDeath" from="HealthController" to="." method="Destroy"]
 [connection signal="OnDamage" from="DamageController" to="HealthController" method="TakeDamage"]
