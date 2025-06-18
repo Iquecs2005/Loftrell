@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://bwm43dqhto85u"]
+[gd_scene load_steps=5 format=3 uid="uid://bwm43dqhto85u"]
 
 [ext_resource type="Script" uid="uid://d343uelapofcp" path="res://Scripts/cameraController.gd" id="1_6s5ae"]
 [ext_resource type="PackedScene" uid="uid://diyrwckyhjymg" path="res://Prefabs/Player.tscn" id="1_l45s6"]
+[ext_resource type="Script" uid="uid://uh10prmamcd3" path="res://Scenes/mapBorder.gd" id="2_i8gr5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i8gr5"]
 size = Vector2(56, 20)
@@ -41,10 +42,14 @@ color = Color(0.414364, 0.258325, 0.158974, 1)
 [node name="CameraTransitionArea" type="Node2D" parent="WorldTile1"]
 position = Vector2(-153, 0)
 rotation = 1.5708
+script = ExtResource("2_i8gr5")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="WorldTile1/CameraTransitionArea"]
+[node name="StaticBody2D" type="Area2D" parent="WorldTile1/CameraTransitionArea"]
+collision_layer = 128
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WorldTile1/CameraTransitionArea/StaticBody2D"]
 shape = SubResource("RectangleShape2D_i8gr5")
 
 [node name="Player" parent="." instance=ExtResource("1_l45s6")]
+
+[connection signal="body_entered" from="WorldTile1/CameraTransitionArea/StaticBody2D" to="WorldTile1/CameraTransitionArea" method="onCollisionEntered"]
