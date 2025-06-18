@@ -6,6 +6,8 @@ extends RigidBody2D
 @onready var bombTimer = $BombTimer
 @onready var attackTimer = $AttackTimer
 
+@onready var attackArea = $AttackArea
+
 @export var maxSpeed : float
 @export var acceleration : float
 @export var desaceleration : float
@@ -62,6 +64,8 @@ func calculateRotation():
 			facingDir = Vector2.DOWN
 		elif inputVector.y < 0: 
 			facingDir = Vector2.UP
+	
+	attackArea.position = facingDir * 10
 	raycast.target_position = facingDir * 15
 
 func Move():
@@ -87,7 +91,7 @@ func SwingSword():
 	if !hookCooldown :
 		print("Gancho em cooldown")
 		return
-	attackSprite.visible = true
+	attackSprite.play("attack")
 	attackCollision.disabled = false
 	StopMovement()
 	print("Usou sua espada")
@@ -156,7 +160,7 @@ func HookTimeout() -> void:
 	hookCooldown = true
 	
 func AttackTimeout() -> void:
-	attackSprite.visible = false
+	attackSprite.play("default")
 	attackCollision.disabled = true
 	ResumeMovement()
 	hookCooldown = true
