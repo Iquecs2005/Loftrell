@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://bwm43dqhto85u"]
+[gd_scene load_steps=6 format=3 uid="uid://bwm43dqhto85u"]
 
 [ext_resource type="Script" uid="uid://d343uelapofcp" path="res://Scripts/cameraController.gd" id="1_6s5ae"]
 [ext_resource type="PackedScene" uid="uid://diyrwckyhjymg" path="res://Prefabs/Player.tscn" id="1_l45s6"]
 [ext_resource type="Script" uid="uid://uh10prmamcd3" path="res://Scenes/mapBorder.gd" id="2_i8gr5"]
+[ext_resource type="Script" uid="uid://d17rl3sbgfovd" path="res://Scenes/world_tile.gd" id="2_s368d"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i8gr5"]
 size = Vector2(56, 20)
@@ -11,13 +12,15 @@ size = Vector2(56, 20)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 script = ExtResource("1_6s5ae")
+movementDuration = 1.0
 
 [node name="WorldTile1" type="Node2D" parent="."]
 z_index = -5
+script = ExtResource("2_s368d")
 
 [node name="ColorRect" type="ColorRect" parent="WorldTile1"]
 z_index = -5
-offset_left = -160.0
+offset_left = -194.0
 offset_top = -90.0
 offset_right = 160.0
 offset_bottom = 91.0
@@ -25,7 +28,7 @@ color = Color(0.1645, 0.35, 0.170683, 1)
 
 [node name="ColorRect3" type="ColorRect" parent="WorldTile1"]
 z_index = -4
-offset_left = -160.0
+offset_left = -194.0
 offset_top = 27.0
 offset_right = -146.0
 offset_bottom = 92.0
@@ -33,23 +36,100 @@ color = Color(0.414364, 0.258325, 0.158974, 1)
 
 [node name="ColorRect2" type="ColorRect" parent="WorldTile1"]
 z_index = -4
+offset_left = -194.0
+offset_top = -91.0
+offset_right = -146.0
+offset_bottom = -25.0
+color = Color(0.414364, 0.258325, 0.158974, 1)
+
+[node name="CameraTransitionArea" type="Node2D" parent="WorldTile1" node_paths=PackedStringArray("destination")]
+position = Vector2(-153, 0)
+rotation = 1.5708
+script = ExtResource("2_i8gr5")
+destination = NodePath("../../WorldTile2")
+
+[node name="StaticBody2D" type="Area2D" parent="WorldTile1/CameraTransitionArea"]
+collision_layer = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldTile1/CameraTransitionArea/StaticBody2D"]
+position = Vector2(1.00001, 3)
+shape = SubResource("RectangleShape2D_i8gr5")
+
+[node name="WorldTile2" type="Node2D" parent="."]
+z_index = -5
+position = Vector2(-340, 0)
+
+[node name="ColorRect" type="ColorRect" parent="WorldTile2"]
+z_index = -5
+offset_left = -160.0
+offset_top = -90.0
+offset_right = 160.0
+offset_bottom = 91.0
+scale = Vector2(1.08, 1)
+color = Color(0.1645, 0.35, 0.170683, 1)
+
+[node name="ColorRect3" type="ColorRect" parent="WorldTile2"]
+z_index = -4
+offset_left = -160.0
+offset_top = 27.0
+offset_right = -146.0
+offset_bottom = 92.0
+color = Color(0.414364, 0.258325, 0.158974, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="WorldTile2"]
+z_index = -4
 offset_left = -160.0
 offset_top = -91.0
 offset_right = -146.0
 offset_bottom = -25.0
 color = Color(0.414364, 0.258325, 0.158974, 1)
 
-[node name="CameraTransitionArea" type="Node2D" parent="WorldTile1"]
+[node name="ColorRect4" type="ColorRect" parent="WorldTile2"]
+z_index = -4
+offset_left = 146.0
+offset_top = 27.0
+offset_right = 160.0
+offset_bottom = 92.0
+scale = Vector2(3.44, 1)
+color = Color(0.414364, 0.258325, 0.158974, 1)
+
+[node name="ColorRect5" type="ColorRect" parent="WorldTile2"]
+z_index = -4
+offset_left = 146.0
+offset_top = -91.0
+offset_right = 160.0
+offset_bottom = -25.0
+scale = Vector2(3.4, 1)
+color = Color(0.414364, 0.258325, 0.158974, 1)
+
+[node name="CameraTransitionArea" type="Node2D" parent="WorldTile2"]
 position = Vector2(-153, 0)
 rotation = 1.5708
 script = ExtResource("2_i8gr5")
 
-[node name="StaticBody2D" type="Area2D" parent="WorldTile1/CameraTransitionArea"]
+[node name="StaticBody2D" type="Area2D" parent="WorldTile2/CameraTransitionArea"]
 collision_layer = 128
+monitoring = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldTile1/CameraTransitionArea/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldTile2/CameraTransitionArea/StaticBody2D"]
+position = Vector2(1.448e-05, 4)
+shape = SubResource("RectangleShape2D_i8gr5")
+
+[node name="CameraTransitionArea2" type="Node2D" parent="WorldTile2"]
+position = Vector2(-153, 0)
+rotation = 1.5708
+script = ExtResource("2_i8gr5")
+
+[node name="StaticBody2D" type="Area2D" parent="WorldTile2/CameraTransitionArea2"]
+collision_layer = 128
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldTile2/CameraTransitionArea2/StaticBody2D"]
+position = Vector2(-0.00111858, -309)
 shape = SubResource("RectangleShape2D_i8gr5")
 
 [node name="Player" parent="." instance=ExtResource("1_l45s6")]
 
 [connection signal="body_entered" from="WorldTile1/CameraTransitionArea/StaticBody2D" to="WorldTile1/CameraTransitionArea" method="onCollisionEntered"]
+[connection signal="body_entered" from="WorldTile2/CameraTransitionArea/StaticBody2D" to="WorldTile2/CameraTransitionArea" method="onCollisionEntered"]
+[connection signal="body_entered" from="WorldTile2/CameraTransitionArea2/StaticBody2D" to="WorldTile2/CameraTransitionArea2" method="onCollisionEntered"]
