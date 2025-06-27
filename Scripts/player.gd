@@ -1,3 +1,4 @@
+class_name PlayerScript
 extends RigidBody2D
 
 @onready var healthController = $HealthController
@@ -167,3 +168,20 @@ func AttackTimeout() -> void:
 
 func Destroy() -> void:
 	queue_free()
+
+func OnSceneTransition(destination : Node2D):
+	shouldMove = false
+	
+	var dirVector = destination.global_position - global_position
+	if abs(dirVector.x) > abs(dirVector.y):
+		dirVector.y = 0
+	else:
+		dirVector.x = 0
+	dirVector = dirVector.normalized()
+	
+	linear_velocity = dirVector * maxSpeed
+	return
+
+func EndSceneTransition():
+	shouldMove = true
+	return

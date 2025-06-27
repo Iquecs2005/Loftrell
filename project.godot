@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Loftrell"
-run/main_scene="uid://mcqpe4xq5hle"
+run/main_scene="uid://bwm43dqhto85u"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 

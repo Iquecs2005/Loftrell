@@ -3,9 +3,10 @@ extends Camera2D
 
 static var instance : CameraController
 
-@export var destination : Node2D
+@export var player : PlayerScript
 @export var movementDuration : float
 
+var destination : Node2D
 var initialDestination : Vector2
 var moving : bool = false
 var timeMoving : float
@@ -50,6 +51,9 @@ func applyMovement(delta: float):
 	
 	if (completionRatio >= 1):
 		global_position = destination.position
+		var wtScript : WorldTile = destination
+		wtScript.SetColliderActive(true)
+		player.EndSceneTransition()
 		moving = false
 	
 	return
