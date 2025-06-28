@@ -7,6 +7,7 @@ extends RigidBody2D
 @export var acceleration : float
 @export var desaceleration : float
 @export var damage : int 
+@export var maxHealth : int
 
 var playerDG : DamageController
 var PlayerRef : Node2D
@@ -20,6 +21,8 @@ var initialPosition : Vector2
 func _ready() -> void:
 	
 	PlayerRef = get_tree().root.get_node("./Overworld/Player")
+	healthController.maxHealth = maxHealth
+	healthController.currentHealth = maxHealth
 	initialPosition = global_position
 	
 	return

@@ -18,6 +18,7 @@ maxMoveSpeed = 70.0
 acceleration = 10.0
 desaceleration = 10.0
 damage = 1
+maxHealth = 6
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.125698, 0.125698)
