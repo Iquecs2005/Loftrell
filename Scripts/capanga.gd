@@ -95,5 +95,7 @@ func OnTimerEnd():
 	onCooldown = false
 
 func Die():
+	if maxHealth == 30:
+		PlayerRef.LoseItem(4)
 	isDead = true
 	$Sprite2D.visible = false

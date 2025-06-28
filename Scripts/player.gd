@@ -224,3 +224,15 @@ func Attack(body: Node2D) -> void:
 		if damageController != null:
 			damageController.DamageTarget(2)
 		print("atacou")
+		
+func LoseItem(item: int) -> void:
+	if item == 0:
+		hasSword = false
+	elif item == 1:
+		hasShield = false
+	elif item == 2:
+		hasBow = false
+	elif item == 3:
+		hasBomb = false
+	elif item == 4:
+		hasHookshot = false
