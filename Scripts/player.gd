@@ -104,7 +104,7 @@ func SwingSword():
 	if !itemCooldown || !hasSword :
 		print("Gancho em cooldown")
 		return
-	attackSprite.play("attack")
+	#attackSprite.play("attack")
 	attackCollision.disabled = false
 	StopMovement()
 	print("Usou sua espada")
@@ -177,7 +177,7 @@ func ItemTimeout() -> void:
 	itemCooldown = true
 	
 func AttackTimeout() -> void:
-	attackSprite.play("default")
+	#attackSprite.play("default")
 	attackCollision.disabled = true
 	ResumeMovement()
 	itemCooldown = true

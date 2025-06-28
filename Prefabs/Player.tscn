@@ -109,7 +109,6 @@ collide_with_areas = true
 [node name="ShieldRayCast" type="RayCast2D" parent="."]
 enabled = false
 target_position = Vector2(0, 30)
-collision_mask = 2
 collide_with_areas = true
 
 [node name="HealthController" parent="." instance=ExtResource("6_gg3t4")]
