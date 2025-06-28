@@ -117,6 +117,7 @@ isPlayer = true
 
 [node name="DamageController" parent="." instance=ExtResource("7_javds")]
 
+[connection signal="body_entered" from="AttackArea" to="." method="Attack"]
 [connection signal="OnBombInput" from="InputManager" to="." method="DropBomb"]
 [connection signal="OnBowInput" from="InputManager" to="." method="ShootBow"]
 [connection signal="OnHookInput" from="InputManager" to="." method="ShootHookshot"]

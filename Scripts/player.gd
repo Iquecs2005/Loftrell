@@ -205,3 +205,10 @@ func OnSceneTransition(destination : Node2D):
 func EndSceneTransition():
 	ResumeMovement()
 	return
+
+func Attack(body: Node2D) -> void:
+	if (body != self):
+		var damageController = body.damageController
+		if damageController != null:
+			damageController.DamageTarget(2)
+		print("atacou")
