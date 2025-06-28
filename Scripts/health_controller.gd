@@ -1,3 +1,4 @@
+class_name HealthController
 extends Node2D
 
 signal OnHealthUpdate

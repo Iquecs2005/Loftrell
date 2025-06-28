@@ -3,6 +3,7 @@ extends Control
 
 static var instance : UIManager
 
+@export var HeartTypes : Array[Texture]
 @export var HeartTextures : Array[TextureRect]
 
 func _init() -> void:
@@ -15,15 +16,13 @@ func _init() -> void:
 	return
 
 func UpdateHealth(health : int):
-	print("a")
-	
 	for texture in HeartTextures:
 		if health >= 2:
-			texture.region = Rect2(0,0,17,17)
+			texture.texture = HeartTypes[0]
 			health -= 2
 		elif health == 1:
-			texture.region = Rect2(17,17,17,17)
+			texture.texture = HeartTypes[1]
 			health -= 1
 		else:
-			texture.region = Rect2(34,34,17,17)
+			texture.texture = HeartTypes[2]
 	return

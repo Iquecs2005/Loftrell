@@ -1,5 +1,8 @@
 extends RigidBody2D
 
+@onready var healthController = $HealthController
+@onready var damageController = $DamageController
+
 @export var maxMoveSpeed : float
 @export var acceleration : float
 @export var desaceleration : float
@@ -22,6 +25,9 @@ func _ready() -> void:
 	return
 
 func _physics_process(delta: float) -> void:
+	if isDead:
+		return
+	
 	Move()
 	
 	if (playerDG != null):
@@ -65,11 +71,14 @@ func SetActive(state):
 
 func Respawn():
 	isDead = false
-	
+	$Sprite2D.visible = true
+	healthController.dead = false
+	healthController.ReceiveHealing(999)
 	return
 
 func _on_body_entered(body: Node) -> void:
-	print("e")
+	if isDead:
+		return
 	if body.name == "Player" && !onCooldown:
 		playerDG = body.damageController
 
@@ -79,3 +88,7 @@ func _on_body_exited(body: Node) -> void:
 
 func OnTimerEnd():
 	onCooldown = false
+
+func Die():
+	isDead = true
+	$Sprite2D.visible = false

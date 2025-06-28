@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bc6a2eixvtt0"]
+[gd_scene load_steps=6 format=3 uid="uid://bc6a2eixvtt0"]
 
 [ext_resource type="Script" uid="uid://dfcrt7citqj5a" path="res://Scripts/capanga.gd" id="1_owtof"]
 [ext_resource type="Texture2D" uid="uid://bc4k1qo2wt4nn" path="res://Sprites/Player.png" id="2_4ulr3"]
+[ext_resource type="Script" uid="uid://dwcd5ef4tyk7k" path="res://Scripts/damage_controller.gd" id="3_c185e"]
+[ext_resource type="Script" uid="uid://cihuf1s3uilxs" path="res://Scripts/health_controller.gd" id="4_l8q8r"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yvhjy"]
 
@@ -15,7 +17,7 @@ script = ExtResource("1_owtof")
 maxMoveSpeed = 70.0
 acceleration = 10.0
 desaceleration = 10.0
-damage = 5
+damage = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.125698, 0.125698)
@@ -26,6 +28,17 @@ shape = SubResource("RectangleShape2D_yvhjy")
 
 [node name="AttackCooldown" type="Timer" parent="."]
 
+[node name="DamageController" type="Node2D" parent="."]
+script = ExtResource("3_c185e")
+metadata/_custom_type_script = "uid://dwcd5ef4tyk7k"
+
+[node name="HealthController" type="Node2D" parent="."]
+script = ExtResource("4_l8q8r")
+maxHealth = 6.0
+metadata/_custom_type_script = "uid://cihuf1s3uilxs"
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]
 [connection signal="timeout" from="AttackCooldown" to="." method="OnTimerEnd"]
+[connection signal="OnDamage" from="DamageController" to="HealthController" method="TakeDamage"]
+[connection signal="OnDeath" from="HealthController" to="." method="Die"]
