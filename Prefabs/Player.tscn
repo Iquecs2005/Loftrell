@@ -104,6 +104,7 @@ collide_with_areas = true
 
 [node name="HealthController" parent="." instance=ExtResource("6_gg3t4")]
 maxHealth = 10.0
+isPlayer = true
 
 [node name="DamageController" parent="." instance=ExtResource("7_javds")]
 

@@ -6,6 +6,7 @@ signal OnDeath
 @onready var entityController = get_parent()
 
 @export var maxHealth : float
+@export var isPlayer : bool
 
 var currentHealth : float
 
@@ -19,6 +20,10 @@ func UpdateHealth(amount : float):
 	currentHealth += amount
 	
 	OnHealthUpdate.emit()
+	
+	if isPlayer:
+		UIManager.instance.UpdateHealth(currentHealth)
+	
 	return
 
 func TakeDamage():
