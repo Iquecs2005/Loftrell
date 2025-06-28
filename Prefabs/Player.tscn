@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://diyrwckyhjymg"]
+[gd_scene load_steps=16 format=3 uid="uid://diyrwckyhjymg"]
 
 [ext_resource type="Script" uid="uid://dswraaekfjdga" path="res://Scripts/player.gd" id="1_b43ah"]
 [ext_resource type="Texture2D" uid="uid://cdnh330mnaik2" path="res://Sprites/MainCharacter2.png" id="2_shmu5"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://c1exf5l8gq8ej" path="res://Prefabs/hook_shoot.tscn" id="3_gg3t4"]
 [ext_resource type="Script" uid="uid://cr3g4rtsvnjr7" path="res://Scripts/inputManager.gd" id="3_vxq8l"]
 [ext_resource type="Texture2D" uid="uid://js26jogspp45" path="res://Sprites/attack.jpeg" id="4_3ygst"]
+[ext_resource type="PackedScene" uid="uid://7f64halc6qa6" path="res://Prefabs/arrow.tscn" id="4_wuv02"]
 [ext_resource type="Texture2D" uid="uid://cdogo18wkan8j" path="res://Sprites/bombPlaceholder.jpg" id="5_lhekp"]
 [ext_resource type="PackedScene" uid="uid://dtqylaw40i7ku" path="res://Components/health_controller.tscn" id="6_gg3t4"]
 [ext_resource type="Texture2D" uid="uid://wcr558vmhomi" path="res://Sprites/download.png" id="6_k2qb3"]
@@ -64,12 +65,14 @@ bombPrefab = ExtResource("2_vxq8l")
 bombDamage = 3.0
 bombRadius = 32.0
 hookPrefab = ExtResource("3_gg3t4")
+arrowPrefab = ExtResource("4_wuv02")
 attackSprite = NodePath("AnimatedSprite2D")
 attackCollision = NodePath("AttackArea/AttackCollision")
 raycast = NodePath("RayCast2D")
 shieldRaycast = NodePath("ShieldRayCast")
 bombOfsset = 25
 hookOffset = 10
+arrowOffset = 10
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_kpjcp")

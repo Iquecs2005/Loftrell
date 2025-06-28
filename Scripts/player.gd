@@ -19,6 +19,7 @@ extends RigidBody2D
 @export var bombDamage : float
 @export var bombRadius : float
 @export var hookPrefab : PackedScene
+@export var arrowPrefab : PackedScene
 
 @export var attackSprite : AnimatedSprite2D
 @export var attackCollision = CollisionShape2D
@@ -37,10 +38,12 @@ var facingDir = Vector2.DOWN
 
 @export var bombOfsset = 0
 @export var hookOffset = 0
+@export var arrowOffset = 0
 
 var bombCooldown : bool = true
 var itemCooldown : bool = true
 var shieldCooldown : bool = true
+var arrowCooldown : bool = true
 
 var isDefending : bool = false
 
@@ -125,9 +128,15 @@ func RaiseShield():
 	print("Usou seu escudo")
 
 func ShootBow():
-	if !itemCooldown || !hasBow :
+	if !arrowCooldown || !itemCooldown || !hasBow :
 		print("Gancho em cooldown")
 		return
+	arrowCooldown = false
+	var newArrow = arrowPrefab.instantiate()
+	newArrow.global_position = global_position + facingDir * arrowOffset
+	newArrow.get_child(0).rotation = facingDir.angle()
+	get_tree().root.add_child(newArrow)
+	newArrow.get_child(0).initialize(self, facingDir)
 	print("Usou seu arco")
 
 func DropBomb():
@@ -185,6 +194,9 @@ func AttackTimeout() -> void:
 func ShieldTimeout() -> void:
 	shieldCooldown = true
 	isDefending = false
+	
+func ArrowTimeout() -> void:
+	arrowCooldown = true
 
 func Destroy() -> void:
 	get_tree().change_scene_to_file("res://Scenes/overworld.tscn")

@@ -6,9 +6,9 @@
 [ext_resource type="Script" uid="uid://d17rl3sbgfovd" path="res://Scripts/world_tile.gd" id="2_s368d"]
 [ext_resource type="PackedScene" uid="uid://bc6a2eixvtt0" path="res://Prefabs/capanga.tscn" id="4_hf0oe"]
 [ext_resource type="PackedScene" uid="uid://cx66jiie5clgx" path="res://Prefabs/tilemap.tscn" id="5_4qj6l"]
-[ext_resource type="PackedScene" uid="uid://ck41kyc4hobjn" path="res://Prefabs/tree.tscn" id="5_auytq"]
+[ext_resource type="PackedScene" path="res://Prefabs/tree.tscn" id="5_auytq"]
 [ext_resource type="PhysicsMaterial" uid="uid://bl6fts1dq513l" path="res://Materials/wallMaterial.tres" id="5_rmeny"]
-[ext_resource type="PackedScene" uid="uid://cmhuifiqfwp2m" path="res://Prefabs/fake_river.tscn" id="6_c0h7r"]
+[ext_resource type="PackedScene" path="res://Prefabs/fake_river.tscn" id="6_c0h7r"]
 [ext_resource type="PackedScene" uid="uid://bjf54sy4ooko1" path="res://Prefabs/UI.tscn" id="8_2ngsa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i8gr5"]
