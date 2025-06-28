@@ -52,7 +52,7 @@ func applyMovement(delta: float):
 	if (completionRatio >= 1):
 		global_position = destination.position
 		var wtScript : WorldTile = destination
-		wtScript.SetColliderActive(true)
+		wtScript.SetActive(true)
 		player.EndSceneTransition()
 		moving = false
 	

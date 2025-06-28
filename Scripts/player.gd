@@ -170,7 +170,7 @@ func Destroy() -> void:
 	queue_free()
 
 func OnSceneTransition(destination : Node2D):
-	shouldMove = false
+	StopMovement()
 	
 	var dirVector = destination.global_position - global_position
 	if abs(dirVector.x) > abs(dirVector.y):
@@ -183,5 +183,5 @@ func OnSceneTransition(destination : Node2D):
 	return
 
 func EndSceneTransition():
-	shouldMove = true
+	ResumeMovement()
 	return

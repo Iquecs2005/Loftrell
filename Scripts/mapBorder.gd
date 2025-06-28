@@ -14,9 +14,10 @@ func SetActive(state: bool):
 
 func onCollisionEntered(body: Node2D) -> void:
 	print('a')
-	var playerScript : PlayerScript = body
-	if playerScript != null:
-		playerScript.OnSceneTransition(destination)
-		CameraController.instance.setDestination(destination)
-		wtScript.SetColliderActive(false)
-		pass # Replace with function body.
+	if body.name == "Player":
+		var playerScript : PlayerScript = body
+		if playerScript != null:
+			playerScript.OnSceneTransition(destination)
+			CameraController.instance.setDestination(destination)
+			wtScript.SetActive(false)
+			pass # Replace with function body.
