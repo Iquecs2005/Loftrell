@@ -32,7 +32,9 @@ func _physics_process(delta: float) -> void:
 	
 	if (playerDG != null):
 		if !onCooldown:
-			playerDG.DamageTarget(damage)
+			print(!PlayerRef.isDefending)
+			if(!PlayerRef.isDefending):
+				playerDG.DamageTarget(damage)
 			onCooldown = true
 			$AttackCooldown.start()
 

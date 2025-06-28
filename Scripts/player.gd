@@ -6,6 +6,7 @@ extends RigidBody2D
 
 @onready var bombTimer = $BombTimer
 @onready var attackTimer = $AttackTimer
+@onready var shieldTimer = $ShieldTimer
 
 @onready var attackArea = $AttackArea
 
@@ -26,6 +27,7 @@ var lockRotation : bool = false
 var shouldMove : bool = true
 
 @export var raycast : RayCast2D
+@export var shieldRaycast : RayCast2D
 
 var shouldAccelerate : bool
 var shouldDesaccelerate : bool
@@ -38,6 +40,9 @@ var facingDir = Vector2.DOWN
 
 var bombCooldown : bool = true
 var itemCooldown : bool = true
+var shieldCooldown : bool = true
+
+var isDefending : bool = false
 
 var hasSword : bool = true
 var hasShield : bool = true
@@ -74,6 +79,7 @@ func calculateRotation():
 	
 	attackArea.position = facingDir * 10
 	raycast.target_position = facingDir * 15
+	shieldRaycast.target_position = facingDir * 30
 
 func Move():
 	if !shouldMove:
@@ -106,14 +112,16 @@ func SwingSword():
 	attackTimer.start()
 
 func RaiseShield():
-	if !itemCooldown || !hasShield :
+	if !shieldCooldown || !itemCooldown || !hasShield :
 		print("Gancho em cooldown")
 		return
-	raycast.enabled = true
-	raycast.force_raycast_update()
-	if raycast.is_colliding():
-		print("mas que defesa!")
-	
+	shieldRaycast.enabled = true
+	shieldRaycast.force_raycast_update()
+	if shieldRaycast.is_colliding():
+		isDefending = true
+	shieldRaycast.enabled = false
+	shieldCooldown = false
+	shieldTimer.start()
 	print("Usou seu escudo")
 
 func ShootBow():
@@ -165,7 +173,7 @@ func ResumeMovement():
 func BombTimeout() -> void:
 	bombCooldown = true
 
-func HookTimeout() -> void:
+func ItemTimeout() -> void:
 	itemCooldown = true
 	
 func AttackTimeout() -> void:
@@ -173,6 +181,10 @@ func AttackTimeout() -> void:
 	attackCollision.disabled = true
 	ResumeMovement()
 	itemCooldown = true
+	
+func ShieldTimeout() -> void:
+	shieldCooldown = true
+	isDefending = false
 
 func Destroy() -> void:
 	get_tree().change_scene_to_file("res://Scenes/overworld.tscn")
