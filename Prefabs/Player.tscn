@@ -98,6 +98,7 @@ wait_time = 1.2
 one_shot = true
 
 [node name="AttackTimer" type="Timer" parent="."]
+wait_time = 0.3
 one_shot = true
 
 [node name="ShieldTimer" type="Timer" parent="."]
