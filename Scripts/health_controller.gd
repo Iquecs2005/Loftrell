@@ -23,7 +23,8 @@ func UpdateHealth(amount : float):
 	OnHealthUpdate.emit()
 	
 	if isPlayer:
-		UIManager.instance.UpdateHealth(currentHealth)
+		if UIManager.instance != null:
+			UIManager.instance.UpdateHealth(currentHealth)
 	
 	return
 

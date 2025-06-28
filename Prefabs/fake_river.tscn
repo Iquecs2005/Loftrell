@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://cmhuifiqfwp2m"]
+
+[ext_resource type="Script" uid="uid://dvcrvqbqwltif" path="res://Scripts/fake_river.gd" id="1_7gipd"]
+[ext_resource type="Texture2D" uid="uid://b6y2fr0rdalcn" path="res://Sprites/gfx/gfx/Overworld.png" id="2_axb00"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wammb"]
+size = Vector2(26, 16)
+
+[node name="FakeRiver" type="StaticBody2D"]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_7gipd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_wammb")
+
+[node name="RiverSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_axb00")
+region_enabled = true
+region_rect = Rect2(32, 112, 48, 16)
+
+[node name="LogSprite" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("2_axb00")
+region_enabled = true
+region_rect = Rect2(48, 80, 48, 16)

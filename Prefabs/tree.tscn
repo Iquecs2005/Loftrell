@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://ck41kyc4hobjn"]
+
+[ext_resource type="Script" uid="uid://dv2wnr4ljvg3j" path="res://Scripts/tree.gd" id="1_bp0eo"]
+[ext_resource type="Texture2D" uid="uid://b6y2fr0rdalcn" path="res://Sprites/gfx/gfx/Overworld.png" id="1_ws0ei"]
+[ext_resource type="Script" uid="uid://cihuf1s3uilxs" path="res://Scripts/health_controller.gd" id="3_ud2nk"]
+[ext_resource type="Script" uid="uid://dwcd5ef4tyk7k" path="res://Scripts/damage_controller.gd" id="4_gcwhd"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_otjp7"]
+radius = 7.0
+
+[node name="Tree" type="StaticBody2D"]
+collision_layer = 3
+collision_mask = 0
+script = ExtResource("1_bp0eo")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -8)
+texture = ExtResource("1_ws0ei")
+region_enabled = true
+region_rect = Rect2(80, 256, 32, 32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_otjp7")
+
+[node name="HealthController" type="Node2D" parent="."]
+position = Vector2(0, -8)
+script = ExtResource("3_ud2nk")
+maxHealth = 5.0
+metadata/_custom_type_script = "uid://cihuf1s3uilxs"
+
+[node name="DamageController" type="Node2D" parent="."]
+position = Vector2(0, -8)
+script = ExtResource("4_gcwhd")
+metadata/_custom_type_script = "uid://dwcd5ef4tyk7k"
+
+[connection signal="OnDeath" from="HealthController" to="." method="ChopDownTree"]
+[connection signal="OnDamage" from="DamageController" to="HealthController" method="TakeDamage"]
