@@ -1,3 +1,4 @@
+class_name DamageController
 extends Node2D
 
 signal OnDamage

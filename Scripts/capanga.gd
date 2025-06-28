@@ -5,6 +5,7 @@ extends RigidBody2D
 @export var desaceleration : float
 @export var damage : int 
 
+var playerDG : DamageController
 var PlayerRef : Node2D
 
 var onCooldown : bool = false
@@ -22,6 +23,12 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	Move()
+	
+	if (playerDG != null):
+		if !onCooldown:
+			playerDG.DamageTarget(damage)
+			onCooldown = true
+			$AttackCooldown.start()
 
 func Move():
 	if !shouldMove or PlayerRef == null:
@@ -64,10 +71,11 @@ func Respawn():
 func _on_body_entered(body: Node) -> void:
 	print("e")
 	if body.name == "Player" && !onCooldown:
-		print("d")
-		onCooldown = true
-		$AttackCooldown.start()
-		body.damageController.DamageTarget(damage)
-		
+		playerDG = body.damageController
+
+func _on_body_exited(body: Node) -> void:
+	playerDG = null
+	pass # Replace with function body.
+
 func OnTimerEnd():
 	onCooldown = false
