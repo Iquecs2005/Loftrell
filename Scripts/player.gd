@@ -167,7 +167,7 @@ func AttackTimeout() -> void:
 	hookCooldown = true
 
 func Destroy() -> void:
-	queue_free()
+	get_tree().change_scene_to_file("res://Scenes/overworld.tscn")
 
 func OnSceneTransition(destination : Node2D):
 	StopMovement()

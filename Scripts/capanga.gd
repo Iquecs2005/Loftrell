@@ -24,11 +24,10 @@ func _physics_process(delta: float) -> void:
 	Move()
 
 func Move():
-	if !shouldMove:
+	if !shouldMove or PlayerRef == null:
 		return
 	
 	var dirVector : Vector2 = (PlayerRef.global_position - global_position).normalized()
-	print(dirVector)
 	
 	var targetSpeed : Vector2 = dirVector * maxMoveSpeed
 	var speedDif : Vector2 = targetSpeed - linear_velocity
@@ -63,8 +62,9 @@ func Respawn():
 	return
 
 func _on_body_entered(body: Node) -> void:
-	print("a")
+	print("e")
 	if body.name == "Player" && !onCooldown:
+		print("d")
 		onCooldown = true
 		$AttackCooldown.start()
 		body.damageController.DamageTarget(damage)

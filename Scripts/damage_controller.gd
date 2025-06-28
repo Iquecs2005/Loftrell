@@ -8,6 +8,7 @@ var damageAmount : float
 
 func DamageTarget(damage : float):
 	damageAmount = damage
+	print("c")
 	
 	OnDamage.emit()
 	
