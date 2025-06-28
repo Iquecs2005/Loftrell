@@ -36,8 +36,14 @@ var facingDir = Vector2.DOWN
 @export var bombOfsset = 0
 @export var hookOffset = 0
 
-var bombCooldown = true
-var hookCooldown = true
+var bombCooldown : bool = true
+var itemCooldown : bool = true
+
+var hasSword : bool = true
+var hasShield : bool = true
+var hasBow : bool = true
+var hasBomb : bool = true
+var hasHookshot : bool = true
 
 func _physics_process(_delta: float) -> void:
 	
@@ -89,33 +95,35 @@ func Move():
 	#position += currentVelocity * delta
 
 func SwingSword():
-	if !hookCooldown :
+	if !itemCooldown || !hasSword :
 		print("Gancho em cooldown")
 		return
 	attackSprite.play("attack")
 	attackCollision.disabled = false
 	StopMovement()
 	print("Usou sua espada")
-	hookCooldown = false
+	itemCooldown = false
 	attackTimer.start()
 
 func RaiseShield():
-	if !hookCooldown :
+	if !itemCooldown || !hasShield :
 		print("Gancho em cooldown")
 		return
+	raycast.enabled = true
+	raycast.force_raycast_update()
+	if raycast.is_colliding():
+		print("mas que defesa!")
+	
 	print("Usou seu escudo")
 
 func ShootBow():
-	if !hookCooldown :
+	if !itemCooldown || !hasBow :
 		print("Gancho em cooldown")
 		return
 	print("Usou seu arco")
 
 func DropBomb():
-	if !hookCooldown :
-		print("Gancho em cooldown")
-		return
-	if !bombCooldown:
+	if !bombCooldown || !itemCooldown || !hasBomb :
 		print("Bomba em cooldown")
 		return
 	raycast.enabled = true
@@ -132,7 +140,7 @@ func DropBomb():
 	bombTimer.start()
 
 func ShootHookshot():
-	if !hookCooldown :
+	if !itemCooldown || !hasHookshot :
 		print("Gancho em cooldown")
 		return
 	var newHookshoot = hookPrefab.instantiate()
@@ -142,7 +150,7 @@ func ShootHookshot():
 	newHookshoot.get_child(0).initialize(self, facingDir)
 	StopMovement()
 	print("Usou seu gancho")
-	hookCooldown = false
+	itemCooldown = false
 
 func StopMovement():
 	shouldMove = false
@@ -158,13 +166,13 @@ func BombTimeout() -> void:
 	bombCooldown = true
 
 func HookTimeout() -> void:
-	hookCooldown = true
+	itemCooldown = true
 	
 func AttackTimeout() -> void:
 	attackSprite.play("default")
 	attackCollision.disabled = true
 	ResumeMovement()
-	hookCooldown = true
+	itemCooldown = true
 
 func Destroy() -> void:
 	get_tree().change_scene_to_file("res://Scenes/overworld.tscn")
