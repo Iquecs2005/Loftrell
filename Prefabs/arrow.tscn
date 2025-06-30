@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://7f64halc6qa6"]
 
 [ext_resource type="Texture2D" uid="uid://c5280foo8d5rf" path="res://Sprites/arrow.png" id="1_77nlu"]
-[ext_resource type="Script" uid="uid://bgbceupl5ksel" path="res://Scripts/arrow.gd" id="1_c7yig"]
+[ext_resource type="Script" path="res://Scripts/arrow.gd" id="1_c7yig"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c7yig"]
 
@@ -11,9 +11,10 @@
 collision_layer = 5
 collision_mask = 7
 script = ExtResource("1_c7yig")
-arrowSpeed = 1.0
+arrowSpeed = 4.0
 
 [node name="Sprite2D" type="Sprite2D" parent="Area2D"]
+rotation = 3.14159
 scale = Vector2(0.043, 0.05)
 texture = ExtResource("1_77nlu")
 
